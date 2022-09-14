@@ -1,6 +1,6 @@
 import './LogoutPage.scss'
 import React from 'react';
-import { useAuth } from '../App/auth';
+import { useAuth } from '../../hooks/auth';
 
 export function LogoutPage() {
   const auth = useAuth()

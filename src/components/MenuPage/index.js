@@ -1,47 +1,60 @@
 import "./MenuPage.scss";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useAuth } from '../../hooks/auth'
 
 export function MenuPage() {
-  const routes = [
-    {
-      to: "/",
-      text: "Home",
-    },
-    {
-      to: "/blog",
-      text: "Blog",
-    },
-    {
-      to: "/profile",
-      text: "Profile",
-    },
-    {
-      to: "/login",
-      text: "Login",
-    },
-    {
-      to: "/logout",
-      text: "Logout",
-    },
-  ];
+  const auth = useAuth();
 
-  return (
-    <nav>
-      <ul>
-        {routes.map((route, index) => (
-          <li key={route.to}>
-            <NavLink
-              style={({ isActive }) => ({
-                color: isActive ? "red" : "blue",
-              })}
-              to={route.to}
-            >
-              {route.text}
-            </NavLink>
-          </li>
-        ))} 
-      </ul>
-    </nav>
-  );
+    return (
+      <nav>
+        <ul>
+          {routes.map((route, index) => {
+            if (route.publicOnly && auth.user) return null
+            if (route.private && !auth.user) return null
+            return (
+              <li key={index}>
+                <NavLink
+                  style={({ isActive }) => ({
+                    color: isActive ? "red" : "blue",
+                  })}
+                  to={route.to}
+                >
+                  {route.text}
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    );
 }
+
+const routes = [
+  {
+    to: "/",
+    text: "Home",
+    private: false,
+  },
+  {
+    to: "/blog",
+    text: "Blog",
+    private: false,
+  },
+  {
+    to: "/profile",
+    text: "Profile",
+    private: true,
+  },
+  {
+    to: "/login",
+    text: "Login",
+    private: false,
+    publicOnly:true,
+  },
+  {
+    to: "/logout",
+    text: "Logout",
+    private: true,
+  },
+];

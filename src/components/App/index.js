@@ -1,7 +1,7 @@
 import './App.scss';
 import React from 'react';
 import { HashRouter, Routes, Route }  from 'react-router-dom'
-import { AuthProvider, authProvider } from './auth'
+import { AuthProvider, AuthRoute } from '../../hooks/auth'
 import { MenuPage } from '../MenuPage';
 import { HomePage } from '../HomePage/'
 import { BlogPage } from '../BlogPage/'
@@ -23,8 +23,8 @@ function App() {
             <Route path=":slug" element={ <BlogPostPage/> } />
           </Route>
           <Route path="/login" element={ <LoginPage/> } />
-          <Route path="/logout" element={ <LogoutPage/> } />
-          <Route path="/profile" element={ <ProfilePage/> } />
+          <Route path="/logout" element={ <AuthRoute><LogoutPage/></AuthRoute> } />
+          <Route path="/profile" element={ <AuthRoute><ProfilePage/></AuthRoute> } />
           <Route path="*" element={ <p>Not found</p> } />
         </Routes>
         </AuthProvider>

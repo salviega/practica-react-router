@@ -2,7 +2,7 @@ import './BlogPage.scss'
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom'
 
-import { blogdata } from '../middleware/getBlockData';
+import { blogdata } from '../../middleware/getBlockData';
 
 export function BlogPage() {
 
