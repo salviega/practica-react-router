@@ -1,7 +1,7 @@
 import './BlogPage.scss'
 import React from 'react';
+import { Link, Outlet } from 'react-router-dom'
 
-import { BlogLinkPage } from '../BlogLinkPage';
 import { blogdata } from '../middleware/getBlockData';
 
 export function BlogPage() {
@@ -11,9 +11,12 @@ export function BlogPage() {
       <h1>BlogPage</h1>
       <ul>
         {blogdata.map((post, index) => (
-          <BlogLinkPage key={index} post={post} />
+          <li key={index}>
+            <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+          </li>
         ))}
       </ul>
+      <Outlet />
     </React.Fragment>
   )
 }
